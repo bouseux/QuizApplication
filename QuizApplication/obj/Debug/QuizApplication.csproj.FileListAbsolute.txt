@@ -1,0 +1,5 @@
+C:\_Retz\_WL\_TFS\SIG\JavaScript\QuizApplication\QuizApplication\bin\QuizAppplication.dll
+C:\_Retz\_WL\_TFS\SIG\JavaScript\QuizApplication\QuizApplication\bin\QuizAppplication.pdb
+C:\_Retz\_WL\_TFS\SIG\JavaScript\QuizApplication\QuizApplication\obj\Debug\QuizApplication.csprojResolveAssemblyReference.cache
+C:\_Retz\_WL\_TFS\SIG\JavaScript\QuizApplication\QuizApplication\obj\Debug\QuizAppplication.dll
+C:\_Retz\_WL\_TFS\SIG\JavaScript\QuizApplication\QuizApplication\obj\Debug\QuizAppplication.pdb
