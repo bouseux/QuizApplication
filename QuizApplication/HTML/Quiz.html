@@ -9,28 +9,31 @@
         <h1>Quiz Application</h1>
     </header>
 
-    <div class="question">
-        <label id="question">Question goes here...</label>
+    <div id="questionDiv" class="bold-font">
+        <label id="questionLabel">Question goes here...</label>
         <br />
+        <br />   
     </div>
-   
-    <div>
+    <div id="answerDiv">
         <input id="a1" name="answer" type="radio" value="0"/> <label id="label0">Answer 1</label><br />
         <input id="a2" name="answer" type="radio" value="1"/> <label id="label1">Answer 2</label><br />
         <input id="a3" name="answer" type="radio" value="2"/> <label id="label2">Answer 3</label><br />
         <input id="a4" name="answer" type="radio" value="3"/> <label id="label3">Answer 4</label><br />
     </div>
-    
-    <div id="control">
-        <br />
-        <button id="next" name="next">Next</button>
+    <div id="resultsDiv" class="hidden">
+        <span>Your Score:</span><strong><span id="percentageText"></span></strong>
+        <p id="resultText"></p>
     </div>
-
+    <div id="control">
+        <br />   
+        <button id="nextButton" name="next">Next</button>
+    </div>
+<!--    
     <br /><br />
-    <aside class="question">
+    <aside class="bold-font">
         <label id="result">0/0</label>
     </aside>
-
+-->
     <br /><br />
     <footer>
         <p>Copywrite &COPY; 2014</p>

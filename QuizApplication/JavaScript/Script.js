@@ -1,60 +1,108 @@
-﻿var questionList = [
-                        { question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer: 0 },
-                        { question: "Who was the 16th President of the United States?", choices: ["Thomas Jefferson", "Abraham Lincoln", "Andrew Jackson", "Theodore Roosevelt"], correctAnswer: 1 }, // , "Daffy Duck"
-                        { question: "Who was the first man to walk on the moon?", choices: ["Donald Duck", "Buck Cherry", "Neil Armstrong", "Tony Blair"], correctAnswer: 2 }
-                   ];
+﻿var QuizNamespace = QuizNamespace || {};
 
-var answerList = new Array(questionList.length);
-var questionLabel = document.getElementById("question");
-var nextButton = document.getElementById("next");
-var nextQuestion = 0;
+QuizNamespace = (function () {
+    var questionList = [
+                            { question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron", "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer: 0, userAnswer: -1 },
+                            { question: "Who was the 16th President of the United States?", choices: ["Thomas Jefferson", "Abraham Lincoln", "Andrew Jackson", "Theodore Roosevelt", "Eddie Van Halen"], correctAnswer: 1, userAnswer: -1 },
+                            { question: "Who was the first man to walk on the moon?", choices: ["Danny Noonan", "Carl Spackler", "Neil Armstrong", "Ty Webb"], correctAnswer: 2, userAnswer: -1 }
+                       ];
 
-var clickNext = function(index) {
-    if (index != 0) {
-        // Record the user's answer
-        //var answers = document.getElementsByName("answer");
-        //for (var i = 0; i < answers.length; i++) {
-        //    if (answers[i].checked) {
-        //        answerList[index - 1] = answers[i].value;
-        //        answers[i].checked = false;
-        //        break;
-        //    }
-        //}
-        var answer = document.querySelector("[name=answer]:checked");
-        answerList[index - 1] = answer.value;
-        answer.checked = false;
-    }
+    var questionLabel = document.getElementById("questionLabel");
+    var answerDiv = document.getElementById("answerDiv");
+    var nextButton = document.getElementById("nextButton");
+    var nextQuestion = 0;
 
-    // Load next question
-    var question = questionList[index];
-
-    if (question != null) {
-        questionLabel.innerText = question.question;
-
-        for (var i = 0; i < question.choices.length; i++) {
-            var label = document.getElementById("label" + i);
-            label.innerText = question.choices[i];
+    var clickNext = function() {
+        if (nextQuestion != 0) {
+            // Record the user's answer
+            var answer = document.querySelector("[name=answer]:checked");
+            questionList[nextQuestion - 1].userAnswer = answer.value;
+            answer.checked = false;
         }
 
-        nextQuestion++;
+        // Get next question
+        var questionJSON = questionList[nextQuestion];
+        if (questionJSON != null) {
+            // Display next question
+            questionLabel.innerText = questionJSON.question;
+
+            // Display answers
+            answerDiv.innerHTML = "";
+            for (var i = 0; i < questionJSON.choices.length; i++) {
+                AddAnswer(questionJSON, i);
+            }
+
+            nextQuestion++;
+        }
+        else {
+            // Display result page
+            var questionDiv = document.getElementById("questionDiv");
+            questionDiv.className = "hidden";
+
+            answerDiv.className = "hidden";
+
+            var resultsDiv = document.getElementById("resultsDiv");
+            resultsDiv.className = "visible";
+
+            // Calculate results
+            var correctAnswers = 0;
+            for (var i = 0; i < questionList.length; i++) {
+                if (questionList[i].correctAnswer == questionList[i].userAnswer) {
+                    correctAnswers++;
+                }
+            }
+
+            var percentage = Math.round((correctAnswers / questionList.length) * 100);
+
+            // Display results
+            //var resultText = document.getElementById("percentageText");
+            percentageText.innerHTML = " " + percentage + "%";
+            //var resultText = document.getElementById("resultText");
+            resultText.innerText = "You answered " + correctAnswers + " out of " + questionList.length + " questions correct.";
+        }
+    };
+
+    var AddAnswer = function (questionJSON, index) {
+        var answer = document.createElement("input");
+        answer.id = "answer" + index;
+        answer.name = "answer";
+        answer.type = "radio";
+        answer.value = index;
+        answer.className = "radio-margin";
+
+        var label = document.createElement("label")
+        label.innerText = questionJSON.choices[index];
+
+        answerDiv.appendChild(answer);
+        answerDiv.appendChild(label);
+        answerDiv.appendChild(document.createElement("br"));
+    };
+
+    return {
+        // Variables
+        nextButton: nextButton,
+        // Fuctions
+        NextButtonClick: clickNext
     }
-    else {
-        // Display last page...
-        //document.getElementById("page1").visible = false;
-        //document.getElementById("page2").visible = true;
-        // Calculate results...
-        // Display results...
-    }
-};
+
+})();
 
 //nextButton.onclick = function () {
 //    clickNext(nextQuestion);
 //}
-nextButton.addEventListener("click", function () { clickNext(nextQuestion) });
+//nextButton.addEventListener("click", function () { clickNext(nextQuestion) });
+QuizNamespace.nextButton.addEventListener("click", function () { QuizNamespace.NextButtonClick() });
 
 // Intialize the page
 //clickNext(nextQuestion);
-$(function () { clickNext(nextQuestion) });
+//$(function () { clickNext(nextQuestion) });
+$(function () { QuizNamespace.NextButtonClick() });
+
+
+
+
+
+
 
 
 /*

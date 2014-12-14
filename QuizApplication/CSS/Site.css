@@ -1,6 +1,18 @@
 ﻿body {
 }
 
-.question {
+.bold-font {
     font-weight: bold;
+}
+
+.radio-margin {
+    margin-right: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: normal;
 }
